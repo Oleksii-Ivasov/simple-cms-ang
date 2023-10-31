@@ -1,0 +1,36 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-9">
+      <h3 class="mt-4" *ngIf="notFoundError">Post not found</h3>
+      <div class="card shadow-effect" *ngIf="postData">
+        <img
+          class="card-img-top img-fluid"
+          src="{{ postData.postImgPath }}"
+          alt="post-image" />
+        <div class="card-body">
+          <small class="bg-light text-danger text-center">{{
+            postData.category.category
+          }}</small>
+          <small class="bg-light text-success text-center ms-2" *ngIf="postData.isFeatured">Featured</small>
+          <small class="bg-light text-info text-center ms-2">{{
+            postData.views
+          }}</small>
+          <small class="bg-light text-warning text-center ms-2">{{
+            postData.createdAt.toMillis() | date
+          }}</small>
+          <h1 class="mt-3 mb-3">
+            {{ postData.title }}
+          </h1>
+          <p [innerHTML]="postData.content"></p>
+        </div>
+      </div>
+      <app-comment-form></app-comment-form>
+      <app-comment-list></app-comment-list>
+    </div>
+    <div class="col-md-3">
+      <div *ngFor="let similarPost of similarPosts">
+        <app-post-card [postData]="similarPost"></app-post-card>
+      </div>
+    </div>
+  </div>
+</div>

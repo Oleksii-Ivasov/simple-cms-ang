@@ -1,0 +1,10 @@
+<div class="comment-box mt-3" *ngIf="commentData">
+  <h6 class="mb-0">{{commentData.name}}</h6>
+  <small class="text-danger">{{commentData.createdAt.toMillis() | date}}</small>
+  <div class="mt-3 mb-3">
+   {{commentData.content}}
+  </div>
+  <a href="#" class="mt-1">Reply</a>
+  <a href="#" class="mt-1 ms-3">View Reply</a>
+  <hr />
+</div>
