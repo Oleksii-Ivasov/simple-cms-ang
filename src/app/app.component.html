@@ -3,9 +3,11 @@
 <div class="app-body">
   <router-outlet></router-outlet>
 </div>
-<div class="container d-flex justify-content-center mt-3 mb-3">
-  <div class="row subs-card">
-    <app-subscription-form></app-subscription-form>
+<ng-container *ngIf="!isLoginPage()">
+  <div class="container d-flex justify-content-center mt-3 mb-3">
+    <div class="row subs-card">
+      <app-subscription-form></app-subscription-form>
+    </div>
   </div>
-</div>
+</ng-container>
 <app-footer></app-footer>

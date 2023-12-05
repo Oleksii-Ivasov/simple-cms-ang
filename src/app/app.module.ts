@@ -39,6 +39,15 @@ import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { CommentComponent } from './comments/comment/comment.component';
+import { LoginComponent } from './pages/login/login.component';
+import { OAuthModule } from 'angular-oauth2-oidc';
+import { HttpClientModule } from '@angular/common/http';
+import {
+  SocialLoginModule,
+  SocialAuthServiceConfig,
+  GoogleLoginProvider,
+} from "@abacritt/angularx-social-login";
+import { GoogleSigninComponent } from './layouts/google-signin/google-signin.component';
 
 
 @NgModule({
@@ -60,13 +69,18 @@ import { CommentComponent } from './comments/comment/comment.component';
     AboutUsComponent,
     PostCardComponent,
     CommentComponent,
+    LoginComponent,
+    GoogleSigninComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    HttpClientModule,
     ToastrModule.forRoot(),
     BrowserAnimationsModule,
+    OAuthModule.forRoot(),
+    SocialLoginModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAnalytics(() => getAnalytics()),
     provideAuth(() => getAuth()),
@@ -78,7 +92,24 @@ import { CommentComponent } from './comments/comment/comment.component';
     provideRemoteConfig(() => getRemoteConfig()),
     provideStorage(() => getStorage()),
   ],
-  providers: [ScreenTrackingService, UserTrackingService],
+  providers: [ScreenTrackingService, UserTrackingService,
+    {
+      provide: 'SocialAuthServiceConfig',
+      useValue: {
+        autoLogin: false,
+        providers: [
+          {
+            id: GoogleLoginProvider.PROVIDER_ID,
+            provider: new GoogleLoginProvider('255854312866-242oaiu2im96q1g4hh50sjtnjrkm87uq.apps.googleusercontent.com', {
+              scopes: 'openid profile email',
+            }),
+          },
+        ],
+        onError: (err) => {
+          console.error(err);
+        },
+      } as SocialAuthServiceConfig,
+    }],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

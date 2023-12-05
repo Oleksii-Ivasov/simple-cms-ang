@@ -16,6 +16,9 @@ export class SubscriptionFormComponent {
   ) {}
   isSubscribed: boolean = false;
   async onSubmit(form: NgForm) {
+    if (!form.valid) {
+      return
+    }
     const subData: Sub = {
       name: form.value.name,
       email: form.value.email,
