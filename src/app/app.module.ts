@@ -46,9 +46,10 @@ import {
   SocialLoginModule,
   SocialAuthServiceConfig,
   GoogleLoginProvider,
-} from "@abacritt/angularx-social-login";
+} from '@abacritt/angularx-social-login';
 import { GoogleSigninComponent } from './layouts/google-signin/google-signin.component';
-
+import { ShareButtonsModule } from 'ngx-sharebuttons/buttons';
+import { ShareIconsModule } from 'ngx-sharebuttons/icons';
 
 @NgModule({
   declarations: [
@@ -81,6 +82,8 @@ import { GoogleSigninComponent } from './layouts/google-signin/google-signin.com
     BrowserAnimationsModule,
     OAuthModule.forRoot(),
     SocialLoginModule,
+    ShareButtonsModule,
+    ShareIconsModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAnalytics(() => getAnalytics()),
     provideAuth(() => getAuth()),
@@ -92,7 +95,9 @@ import { GoogleSigninComponent } from './layouts/google-signin/google-signin.com
     provideRemoteConfig(() => getRemoteConfig()),
     provideStorage(() => getStorage()),
   ],
-  providers: [ScreenTrackingService, UserTrackingService,
+  providers: [
+    ScreenTrackingService,
+    UserTrackingService,
     {
       provide: 'SocialAuthServiceConfig',
       useValue: {
@@ -100,16 +105,20 @@ import { GoogleSigninComponent } from './layouts/google-signin/google-signin.com
         providers: [
           {
             id: GoogleLoginProvider.PROVIDER_ID,
-            provider: new GoogleLoginProvider('255854312866-242oaiu2im96q1g4hh50sjtnjrkm87uq.apps.googleusercontent.com', {
-              scopes: 'openid profile email',
-            }),
+            provider: new GoogleLoginProvider(
+              '255854312866-242oaiu2im96q1g4hh50sjtnjrkm87uq.apps.googleusercontent.com',
+              {
+                scopes: 'openid profile email',
+              }
+            ),
           },
         ],
         onError: (err) => {
           console.error(err);
         },
       } as SocialAuthServiceConfig,
-    }],
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

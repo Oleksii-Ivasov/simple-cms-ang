@@ -11,7 +11,11 @@
           <small class="bg-light text-danger text-center">{{
             postData.category.category
           }}</small>
-          <small class="bg-light text-success text-center ms-2" *ngIf="postData.isFeatured">Featured</small>
+          <small
+            class="bg-light text-success text-center ms-2"
+            *ngIf="postData.isFeatured"
+            >Featured</small
+          >
           <small class="bg-light text-info text-center ms-2">{{
             postData.views
           }}</small>
@@ -22,6 +26,14 @@
             {{ postData.title }}
           </h1>
           <p fs-5 [innerHTML]="postData.content"></p>
+          <share-buttons theme="circles-dark"
+          [include]="['copy', 'facebook', 'email', 'messenger', 'mix', 'line', 'linkedin', 'pinterest', 'print', 'reddit', 'sms', 'telegram', 'tumblr', 'twitter', 'viber', 'xing', 'whatsapp']"
+          [showIcon]="true"
+          [showText]="false"
+          url="https://google.com"
+          description="Angular Share Buttons"
+          class="pt-5">
+        </share-buttons>
         </div>
       </div>
       <app-comment-form></app-comment-form>
